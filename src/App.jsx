@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+// import reactLogo from './assets/react.svg'
+// import viteLogo from '/vite.svg'
 import VideoRecorder from "../src/components/VideoRecorder"
 import AudioRecorder from './components/AudioRecorder'
 import './App.css'
@@ -25,7 +25,7 @@ const App = () => {
         {recordOption === "video" ? <VideoRecorder /> : <AudioRecorder />}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
