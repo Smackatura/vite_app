@@ -1,83 +1,85 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-}
 body {
-  margin: 0;
+  background-color: #222;
+  color: #fff;
+  font-family: "Helvetica Neue", sans-serif;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 20px;
+}
+
+.title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.button {
+  background-color: #00ccff;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 10px;
+  border-radius: 5px;
+}
+
+.button:hover {
+  background-color: #0099cc;
+}
+
+.audio-list {
   display: flex;
-  place-items: start;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
-
-.button-flex {
-  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 10px;
 }
-.audio-controls,
-.video-controls {
-    margin-bottom: 20px;
+
+.audio-item {
+  background-color: #333;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  width: 300px;
 }
-.audio-player,
-.video-player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+.audio-item:hover {
+  background-color: #444;
 }
-.audio-player,
-.video-player,
-.recorded-player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+.audio-item__title {
+  font-size: 18px;
+  margin-bottom: 10px;
 }
-.live-player {
-    height: 200px;
-    width: 400px;
-    border: 1px solid #646cff;
-    margin-bottom: 30px;
+
+.audio-item__playback {
+  width: 100%;
+  margin-bottom: 10px;
 }
-.recorded-player video {
-    height: 400px;
-    width: 800px;
+
+.audio-item__actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.audio-item__button {
+  background-color: #00ccff;
+  border: none;
+  color: #fff;
+  font-size: 16px;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 5px;
+  border-radius: 5px;
+}
+
+.audio-item__button:hover {
+  background-color: #0099cc;
 }

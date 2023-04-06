@@ -1,29 +1,70 @@
-import { useState, useRef } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import VideoRecorder from "../src/components/VideoRecorder"
-import AudioRecorder from './components/AudioRecorder'
-import './App.css'
+import React, { useState } from 'react';
+import AudioRecorder from 'audio-recorder-polyfill';
+import 'audio-recorder-polyfill/src/js/polyfill.js';
+
+const AudioRecorderComponent = () => {
+  const [recording, setRecording] = useState(false);
+  const [audioList, setAudioList] = useState([]);
+
+  const constraints = { audio: true };
+  const chunks = [];
+
+  const startRecording = () => {
+    navigator.mediaDevices.getUserMedia(constraints)
+      .then((stream) => {
+        const mediaRecorder = new AudioRecorder(stream, {
+          encoderPath: '/path/to/wavEncoder.js',
+        });
+
+        mediaRecorder.addEventListener('dataavailable', (event) => {
+          chunks.push(event.data);
+        });
+
+        mediaRecorder.addEventListener('stop', () => {
+          const blob = new Blob(chunks, { type: 'audio/wav' });
+          setAudioList([...audioList, blob]);
+        });
+
+        mediaRecorder.start();
+        setRecording(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const stopRecording = () => {
+    const mediaRecorder = AudioRecorder.getInstance();
+    mediaRecorder.stop();
+    chunks.length = 0;
+    setRecording(false);
+  };
+
+  return (
+    <div>
+      <button onClick={recording ? stopRecording : startRecording}>
+        {recording ? 'Stop Recording' : 'Start Recording'}
+      </button>
+      {audioList.length > 0 && (
+        <ul>
+          {audioList.map((audioBlob, index) => (
+            <li key={index}>
+              <audio controls>
+                <source src={URL.createObjectURL(audioBlob)} type="audio/wav" />
+              </audio>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+};
 
 const App = () => {
-  // const [count, setCount] = useState(0)
-  const [recordOption, setRecordOption] = useState("video");
-  const toggleRecordOption = (type) => {
-    return () =>{
-      setRecordOption(type);
-    };
-  };
   return (
-    <div className="App">
-      <h1>React Media Recorder</h1>
-      <div className="button-flex">
-        <button onClick={toggleRecordOption("video")}>Record Video</button>
-          {/*  npm run dev to run our env */}
-        <button onClick={toggleRecordOption("audio")}>Record Audio</button>
-      </div>
-      <div>
-        {recordOption === "video" ? <VideoRecorder /> : <AudioRecorder />}
-      </div>
+    <div>
+      <h1>Audio Recorder Component</h1>
+      <AudioRecorderComponent />
     </div>
   );
 };
